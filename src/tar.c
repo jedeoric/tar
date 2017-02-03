@@ -12,6 +12,13 @@ void verbose()
   printf("Uid: %s\n",tar_header.uid);
   printf("Gid: %s\n",tar_header.gid);
   printf("Size: %s\n",tar_header.size);
+  printf("Mtime: %s\n",tar_header.mtime);
+  printf("Chksum: %s\n",tar_header.chksum);
+  printf("Typeflag: %c\n",tar_header.typeflag);
+  printf("Linkname: %s\n",tar_header.linkname);
+  printf("Magic: %s\n",tar_header.magic);
+  printf("Version: %s\n",tar_header.version);
+
 }
 
 
