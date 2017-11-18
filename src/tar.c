@@ -11,9 +11,9 @@ unsigned int size;
 
 struct posix_header tar_header;
 
-  char verbose=0;
-  char debug=0;
-  char extract=0;
+char verbose=0;
+char debug=0;
+char extract=0;
 
 char buffer_file_to_extract[20000];
   
@@ -23,11 +23,11 @@ void version()
 }
 
 void usage()
-    {
+{
 	// Why print instead of printf ? Because it's a lot quicker !
 	print("usage: ");
 	returnline();
-    print("tar [x][v][d] FILENAME");
+  print("tar [x][v][d] FILENAME");
 	returnline();
 	print("tar --version");
 	returnline();
@@ -41,8 +41,8 @@ void usage()
 	returnline();
 	print("--version : print version");
 	returnline();
-    return;
-    }
+  return;
+}
 
 
 	
@@ -97,27 +97,25 @@ void extract_files(FILE *fp)
 	printf("fileno : %d\n",fileno(fp));
 	if (feof(fp))
 		printf("Fp is eof");
+  
 	nb=fread(&tar_header,sizeof(tar_header),1,fp);
+  
 	if (feof(fp))
 		printf("Fp is eof");	
-	printf("fileno : %d\n",fileno(fp));
+	
+  printf("fileno : %d\n",fileno(fp));
 	printf("Bytes read : %d\n",nb);
 	size=tar_header.size[11]+tar_header.size[10]*255;
 	if (verbose==1)
 	  printf("Extracting %s\n",tar_header.name);
-    if (debug==1)
-     print_debug();
-  
-	//nb=fread(&buffer_file_to_extract, size , 1, fp);
+  if (debug==1)
+    print_debug();
+
 	nb=read(fp,&buffer_file_to_extract,size);
 	printf("Demande : %d recu : %d\n",size,nb);
-	//printf("%d",fp->fd);
-   	//for (i=0;i<size;++i)
-		//printf("%c",buffer_file_to_extract[i]);
+}
 
-  }
-
- char manage_option(char *opt)
+char manage_option(char *opt)
 {
 	unsigned char i;
 	for (i=0;i<strlen(opt);i++)
@@ -145,19 +143,17 @@ int main (int argc,char *argv[])
 	}
 	
 	ret=manage_option(argv[1]);
-    if (argc!=3 || ret!=0)
-    {
-        usage();
-        return(1);
-    }
+  if (argc!=3 || ret!=0)
+  {
+    usage();
+    return(1);
+  }
   
   if (strlen(argv[2])==0)
   {
      usage();
      return(1);	  
   }
-  
-
   
   fp=fopen(argv[2],"r");
   if (fp==NULL)
@@ -169,15 +165,9 @@ int main (int argc,char *argv[])
   
   if (extract==1)
   {
-   extract_files(fp);
-   
-
-  
-  
+    extract_files(fp);
   }
-	
-	//nb=read(fp,&buffer_file_to_extract, size);
 
-    fclose(fp);
+  fclose(fp);
   
 }
